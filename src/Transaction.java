@@ -1,5 +1,6 @@
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Random;
 
 public class Transaction implements Serializable {
     private long transactionId;
@@ -10,15 +11,15 @@ public class Transaction implements Serializable {
     private boolean isRefused;
 
     public Transaction(long transactionId, BackAccount sourceAccount, BackAccount destinationAccount, double moneyAmount) {
-        this.transactionId = transactionId;
+        this.transactionId = new Random().nextLong();
         this.sourceAccount = sourceAccount;
         this.destinationAccount = destinationAccount;
         this.moneyAmount = moneyAmount;
         if (this.sourceAccount.tryTakeMoney(moneyAmount)){
-            isRefused = true;
+            isRefused = false;
         }
         else{
-            isRefused = false;
+            isRefused = true;
         }
         this.timestamp = LocalDateTime.now();
     }
@@ -26,7 +27,9 @@ public class Transaction implements Serializable {
     public long getTransactionId() {
         return transactionId;
     }
-
+    public void setTransactionId() {
+        this.transactionId = new Random().nextLong();
+    }
 
     public BackAccount getSourceAccount() {
         return sourceAccount;
@@ -50,14 +53,14 @@ public class Transaction implements Serializable {
 
     @Override
     public String toString() {
-        String rep = this.sourceAccount.getOwner() + " à " + this.destinationAccount.getOwner() + " de " + this.moneyAmount;
+        String rep = this.sourceAccount.getOwner() + " à " + this.destinationAccount.getOwner() + " de " + this.moneyAmount+" CHF";
 
         if (isRefused){
-            rep = rep + " ce paiement est refusé";
+            rep += " ce paiement est refusé";
         }
         else{
-            rep = rep + " ce paiement est accepté";
+            rep += " ce paiement est accepté";
         }
-        return rep;
+        return rep + (" à " + timestamp);
     }
 }

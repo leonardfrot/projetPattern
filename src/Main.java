@@ -43,6 +43,13 @@ public class Main {
         for(Transaction transaction : TransactionsLogger.getInstance().getLogs()){
             System.out.println(transaction);
         }
+        for (BackAccount account : accountsList){
+            System.out.println(account.getBankAccoundtId());
+        }
+        System.out.println(transaction1.getTransactionId());
+        System.out.println(transaction2.getTransactionId());
+        System.out.println(transaction3.getTransactionId());
+        System.out.println(transaction4.getTransactionId());
 
 
 
