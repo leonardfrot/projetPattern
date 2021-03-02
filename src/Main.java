@@ -17,8 +17,6 @@ public class Main {
         accountsList.add(account2);
         accountsList.add(account3);
         accountsList.add(account4);
-
-
         accountsList.add(account5);
 
         for(BackAccount account : accountsList){
@@ -42,14 +40,19 @@ public class Main {
 
         for(Transaction transaction : TransactionsLogger.getInstance().getLogs()){
             System.out.println(transaction);
+            if (transaction.isRefused()){
+                System.out.println("Ce paiement est refusé car la somme est insuffisante");
+                System.out.println("le compte source de départ avait " + transaction.getSourceAccount().getMoney() + " et le montant de transaction est de " + transaction.getMoneyAmount());
+            }
+            else{
+                System.out.println("le compte source " + transaction.getSourceAccount().getOwner() + " avait " + (transaction.getSourceAccount().getMoney() + transaction.getMoneyAmount())+ " francs");
+                System.out.println("Il a maintenant "+ transaction.getSourceAccount().getMoney() + " francs");
+                System.out.println("le compte de destination " + transaction.getDestinationAccount().getOwner() + " avait "+ transaction.getDestinationAccount().getMoney()+ " francs");
+                System.out.println("il a maintenant " + (transaction.getDestinationAccount().getMoney() + transaction.getMoneyAmount()) + " francs");
+            }
+            System.out.println();
         }
-        for (BackAccount account : accountsList){
-            System.out.println(account.getBankAccoundtId());
-        }
-        System.out.println(transaction1.getTransactionId());
-        System.out.println(transaction2.getTransactionId());
-        System.out.println(transaction3.getTransactionId());
-        System.out.println(transaction4.getTransactionId());
+
 
 
 
