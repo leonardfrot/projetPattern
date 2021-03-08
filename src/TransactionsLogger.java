@@ -3,7 +3,7 @@ import java.util.List;
 
 public class TransactionsLogger {
     //création d'une instance unique
-    private static TransactionsLogger INSTANCE = new TransactionsLogger();
+    private static TransactionsLogger INSTANCE;
     private List<Transaction> logs = new ArrayList<>();
     //constructeur en private pour éviter l'instanciation par d'autres classes
     private TransactionsLogger() {}
@@ -14,8 +14,10 @@ public class TransactionsLogger {
      * différents threads.
      * Retourne l'instance du singleton.
      */
-    public synchronized static TransactionsLogger getInstance()
-    {
+    public synchronized static TransactionsLogger getInstance(){
+        if (INSTANCE == null){
+            INSTANCE =  new TransactionsLogger();
+        }
         return INSTANCE;
     }
 
